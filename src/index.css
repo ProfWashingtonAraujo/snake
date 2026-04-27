@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0a0a0f;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-arcade-surface/60 backdrop-blur-md border border-white/10 rounded-2xl shadow-xl;
+  }
+  
+  .neon-button {
+    @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+  }
+  
+  .neon-button-primary {
+    @apply bg-arcade-neon text-arcade-dark font-bold py-3 px-8 rounded-xl shadow-[0_0_20px_rgba(0,243,255,0.4)] hover:shadow-[0_0_30px_rgba(0,243,255,0.6)] hover:brightness-110;
+  }
+
+  .neon-text-blue {
+    @apply text-arcade-neon drop-shadow-[0_0_8px_rgba(0,243,255,0.8)];
+  }
+
+  .neon-text-pink {
+    @apply text-arcade-pink drop-shadow-[0_0_8px_rgba(255,0,255,0.8)];
+  }
+
+  .grid-bg {
+    background-image: linear-gradient(rgba(0, 243, 255, 0.05) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 243, 255, 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0f;
+}
+::-webkit-scrollbar-thumb {
+  background: #1e1e2d;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2d2d3f;
+}

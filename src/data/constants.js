@@ -9,19 +9,25 @@ export const INITIAL_DIRECTION = 'UP';
 export const DIFFICULTIES = {
   EASY: {
     label: 'Fácil',
-    speed: 150,
+    speed: 220,
+    minSpeed: 140,
+    speedStep: 4,
     multiplier: 1,
     color: 'text-green-400',
   },
   MEDIUM: {
     label: 'Médio',
-    speed: 100,
+    speed: 200,
+    minSpeed: 120,
+    speedStep: 5,
     multiplier: 2,
     color: 'text-yellow-400',
   },
   HARD: {
     label: 'Difícil',
-    speed: 60,
+    speed: 110,
+    minSpeed: 70,
+    speedStep: 3,
     multiplier: 3,
     color: 'text-red-400',
   },

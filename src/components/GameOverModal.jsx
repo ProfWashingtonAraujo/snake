@@ -7,13 +7,14 @@ import { DIFFICULTIES } from '../data/constants';
 const GameOverModal = ({ score, difficulty, onRestart, onHome }) => {
   const [name, setName] = useState('');
   const [saved, setSaved] = useState(false);
+  const normalizedName = name.replace(/[^a-zA-Z\s]/g, '').trim();
 
   const handleSave = (e) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!normalizedName) return;
     
     saveScore({
-      name: name.trim(),
+      name: normalizedName,
       score,
       difficulty: DIFFICULTIES[difficulty].label,
       date: new Date().toLocaleDateString(),
@@ -49,7 +50,7 @@ const GameOverModal = ({ score, difficulty, onRestart, onHome }) => {
                   type="text"
                   maxLength={12}
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => setName(e.target.value.replace(/[^a-zA-Z\s]/g, ''))}
                   placeholder="PLAYER ONE"
                   className="w-full bg-white/5 border border-white/10 rounded-xl py-3 px-4 focus:outline-none focus:border-arcade-neon transition-colors font-bold uppercase placeholder:text-white/20"
                 />
@@ -57,7 +58,7 @@ const GameOverModal = ({ score, difficulty, onRestart, onHome }) => {
             </div>
             <button 
               type="submit"
-              disabled={!name.trim()}
+              disabled={!normalizedName}
               className="w-full neon-button bg-arcade-neon/20 hover:bg-arcade-neon/30 text-arcade-neon border border-arcade-neon/30 py-3 rounded-xl font-bold flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <Save className="w-4 h-4" />

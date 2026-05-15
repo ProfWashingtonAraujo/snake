@@ -9,6 +9,7 @@ export const useSnakeGame = (difficulty = 'MEDIUM') => {
   const [score, setScore] = useState(0);
   const [gameState, setGameState] = useState('START'); // START, PLAYING, PAUSED, GAME_OVER
   const [highScore, setHighScore] = useState(0);
+  const [currentSpeed, setCurrentSpeed] = useState(DIFFICULTIES[difficulty].speed);
   
   const moveRef = useRef(INITIAL_DIRECTION);
   const lastProcessedMoveRef = useRef(INITIAL_DIRECTION);
@@ -20,8 +21,9 @@ export const useSnakeGame = (difficulty = 'MEDIUM') => {
     lastProcessedMoveRef.current = INITIAL_DIRECTION;
     setFood(getRandomPosition(INITIAL_SNAKE));
     setScore(0);
+    setCurrentSpeed(DIFFICULTIES[difficulty].speed);
     setGameState('PLAYING');
-  }, []);
+  }, [difficulty]);
 
   const pauseGame = useCallback(() => {
     if (gameState === 'PLAYING') setGameState('PAUSED');
@@ -66,6 +68,9 @@ export const useSnakeGame = (difficulty = 'MEDIUM') => {
         // Check if food eaten
         if (newHead.x === food.x && newHead.y === food.y) {
           setScore((s) => s + 10 * DIFFICULTIES[difficulty].multiplier);
+          setCurrentSpeed((speed) =>
+            Math.max(DIFFICULTIES[difficulty].minSpeed, speed - DIFFICULTIES[difficulty].speedStep)
+          );
           setFood(getRandomPosition(newSnake));
         } else {
           newSnake.pop();
@@ -75,9 +80,9 @@ export const useSnakeGame = (difficulty = 'MEDIUM') => {
       });
     };
 
-    const gameInterval = setInterval(moveSnake, DIFFICULTIES[difficulty].speed);
+    const gameInterval = setInterval(moveSnake, currentSpeed);
     return () => clearInterval(gameInterval);
-  }, [gameState, food, difficulty]);
+  }, [gameState, food, difficulty, currentSpeed]);
 
   return {
     snake,

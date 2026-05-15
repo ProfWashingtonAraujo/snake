@@ -2,7 +2,12 @@ const RANKING_KEY = 'snake_premium_arcade_ranking';
 
 export const getRanking = () => {
   const data = localStorage.getItem(RANKING_KEY);
-  return data ? JSON.parse(data) : [];
+  const ranking = data ? JSON.parse(data) : [];
+
+  return ranking.map((entry) => ({
+    ...entry,
+    name: typeof entry.name === 'string' && entry.name.trim() ? entry.name : 'PLAYER',
+  }));
 };
 
 export const saveScore = (scoreData) => {
